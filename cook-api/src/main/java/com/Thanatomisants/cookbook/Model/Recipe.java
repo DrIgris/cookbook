@@ -14,8 +14,8 @@ public class Recipe {
     Ingredient[] ingredients;
     String name;
     String intro;
-    int prep;
-    int cook;
+    int prepTime;
+    int cookTime;
     int serving;
     int calorie; 
 }
