@@ -1,6 +1,10 @@
 package com.Thanatomisants.cookbook.ViewModel;
 
+import com.Thanatomisants.cookbook.Model.Ingredient;
 import com.Thanatomisants.cookbook.Model.Recipe;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class RecipeFileDAO implements RecipeDAO{
 
@@ -28,10 +32,13 @@ public class RecipeFileDAO implements RecipeDAO{
         throw new UnsupportedOperationException("Unimplemented method 'getRecipeByIngredient'");
     }
 
+    
+
     @Override
     public void addRecipe(Recipe recipe) {
-        // TODO Auto-generated method stub
+// TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addRecipe'");
+        
     }
 
     @Override
@@ -44,24 +51,6 @@ public class RecipeFileDAO implements RecipeDAO{
     public void deleteRecipe(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteRecipe'");
-    }
-
-    @Override
-    public void addDirection(int recipeId, int sort, String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addDirection'");
-    }
-
-    @Override
-    public void deleteDirection(int recipeId, int sort) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteDirection'");
-    }
-
-    @Override
-    public void updateDirection(int recipeId, int sort, String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateDirection'");
     }
     
 }
