@@ -35,20 +35,20 @@ public class RecipeFileDAO implements RecipeDAO{
     
 
     @Override
-    public void addRecipe(Recipe recipe) {
+    public boolean addRecipe(Recipe recipe) {
 // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addRecipe'");
         
     }
 
     @Override
-    public void updateRecipe(Recipe recipe) {
+    public boolean updateRecipe(Recipe recipe) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateRecipe'");
     }
 
     @Override
-    public void deleteRecipe(int id) {
+    public boolean deleteRecipe(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteRecipe'");
     }

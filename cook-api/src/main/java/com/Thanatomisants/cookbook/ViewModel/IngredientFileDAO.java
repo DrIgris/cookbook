@@ -15,19 +15,19 @@ public class IngredientFileDAO implements IngredientDAO {
     }
 
     @Override
-    public void addIngredient(int recipeId, int sort, String ingredient) {
+    public boolean addIngredient(int recipeId, int sort, String ingredient) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addIngredient'");
     }
 
     @Override
-    public void deleteIngredient(int recipeId, int sort) {
+    public boolean deleteIngredient(int recipeId, int sort) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteIngredient'");
     }
 
     @Override
-    public void updateIngredient(int recipeId, int sort, String ingredient) {
+    public boolean updateIngredient(int recipeId, int sort, String ingredient) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateIngredient'");
     }

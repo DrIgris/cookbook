@@ -8,20 +8,22 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Ingredient {
-    int amount;
-    String unit;
-    String item;
-    String notes;
+    private int id;
+    private int recipeId;
+    private int quantity;
+    private String unit;
+    private String item;
+    private String notes;
 
-    public Ingredient(int amount, String unit, String item) {
-        this.amount = amount;
+    public Ingredient(int quantity, String unit, String item) {
+        this.quantity = quantity;
         this.unit = unit;
         this.item = item;
         notes = "";
     }
 
-    public Ingredient(int amount, String unit, String item, String notes) {
-        this.amount = amount;
+    public Ingredient(int quantity, String unit, String item, String notes) {
+        this.quantity = quantity;
         this.unit = unit;
         this.item = item;
         this.notes = notes;

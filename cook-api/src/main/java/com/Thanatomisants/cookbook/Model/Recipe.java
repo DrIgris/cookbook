@@ -10,12 +10,11 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class Recipe {
-    String[] directions;
-    Ingredient[] ingredients;
-    String name;
-    String intro;
-    int prepTime;
-    int cookTime;
-    int serving;
-    int calorie; 
+    private int id;
+    private String title;
+    private String intro;
+    private int prepTime;
+    private int cookTime;
+    private int serving;
+    private int calorie; 
 }

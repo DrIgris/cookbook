@@ -15,19 +15,19 @@ public class DirectionFileDAO implements DirectionDAO {
     }
 
     @Override
-    public void addDirection(int recipeId, int sort, String direction) {
+    public boolean addDirection(int recipeId, int sort, String direction) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addDirection'");
     }
 
     @Override
-    public void deleteDirection(int recipeId, int sort) {
+    public boolean deleteDirection(int recipeId, int sort) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteDirection'");
     }
 
     @Override
-    public void updateDirection(int recipeId, int sort, String direction) {
+    public boolean updateDirection(int recipeId, int sort, String direction) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateDirection'");
     }
