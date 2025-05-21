@@ -32,14 +32,6 @@ public class RecipeFileDAO implements RecipeDAO{
         throw new UnsupportedOperationException("Unimplemented method 'getRecipeByIngredient'");
     }
 
-    
-
-    @Override
-    public boolean addRecipe(Recipe recipe) {
-// TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addRecipe'");
-        
-    }
 
     @Override
     public boolean updateRecipe(Recipe recipe) {
