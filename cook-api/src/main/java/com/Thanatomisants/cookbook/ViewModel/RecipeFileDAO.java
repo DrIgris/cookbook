@@ -9,12 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class RecipeFileDAO implements RecipeDAO{
 
     @Override
-    public Recipe[] getRecipes(int offset, int limit) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecipes'");
-    }
-
-    @Override
     public Recipe getRecipe(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getRecipe'");

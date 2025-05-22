@@ -2,6 +2,7 @@ package com.Thanatomisants.cookbook.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class Recipe {
     private int id;
     private String title;

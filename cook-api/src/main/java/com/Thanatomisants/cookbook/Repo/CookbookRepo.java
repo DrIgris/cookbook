@@ -1,10 +1,14 @@
 package com.Thanatomisants.cookbook.Repo;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.Thanatomisants.cookbook.Model.Recipe;
+import com.Thanatomisants.cookbook.Mappers.RecipeRowMapper;
 
 @Repository
 public class CookbookRepo {
@@ -43,8 +47,11 @@ public class CookbookRepo {
         throw new UnsupportedOperationException("Unimplemented method 'updateIngredient'");
     }
     // RECIPES
-    public Recipe[] getRecipes(int offset, int limit) {
-        throw new UnsupportedOperationException("Unimplemented method 'getRecipes'");
+    public Recipe[] getRecipes(int offset, int limit) { //limit + 1
+        String sql = "SELECT * FROM recipes LIMIT ? OFFSET ?";
+        List<Recipe> recipes = jdbcTemplate.query(sql, new RecipeRowMapper(), limit + 1, offset);
+        Recipe[] result = recipes.toArray(new Recipe[0]);
+        return result;
     }
     public Recipe getRecipe(int id) {
         throw new UnsupportedOperationException("Unimplemented method 'getRecipe'");

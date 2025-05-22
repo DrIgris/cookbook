@@ -30,13 +30,14 @@ public class RecipeController {
         return result ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @GetMapping("/recipe")
-    public ResponseEntity<Recipe> getRecipes(@RequestBody int id) {
-    
+    @GetMapping("/recipe") //Remember repo will return limit + 1 items
+    public ResponseEntity<Recipe[]> getRecipes(@RequestParam int offset, @RequestParam int limit) {
+        Recipe[] results = cookRepo.getRecipes(offset, limit);
+        return results != null ? new ResponseEntity<Recipe[]>(results, HttpStatus.OK) : new ResponseEntity<Recipe[]>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/recipe/search") //call url looks like http://localhost:8080/cook/recipe/search?text=chicken
-    public ResponseEntity<Void> searchRecipes(@RequestParam String text) {
+    // @GetMapping("/recipe/search") //call url looks like http://localhost:8080/cook/recipe/search?text=chicken
+    // public ResponseEntity<Recipe[]> searchRecipes(@RequestParam String text) {
        
-    }
+    // }
 }

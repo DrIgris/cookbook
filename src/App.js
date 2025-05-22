@@ -2,6 +2,8 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const LIMIT = 5;
+
 function HTMLCall() {
   const [title, setTitle] = useState('');
   const [intro, setIntro] = useState('');
@@ -18,7 +20,7 @@ function HTMLCall() {
     setResponse(null);
 
     try {
-      const res = await axios.post('http://localhost:8080/cook', {
+      const res = await axios.post('http://localhost:8080/cook/recipe', {
         title,
         intro,
         prepTime: Number(prepTime),
@@ -106,11 +108,48 @@ function HTMLCall() {
   
 }
 
+function GetTest() {
+  const [recipes, setRecipes] = useState([]);
+  const [chosenID, setChosenID] = useState(null);
+
+
+  function displayChosen(id) {
+    setChosenID(id);
+  }
+  useEffect(() => {
+    axios.get("http://localhost:8080/cook/recipe", {
+      params: {
+        offset: 0,
+        limit: LIMIT
+      }
+    }).then(response => {
+      setRecipes(response.data);
+    }).catch(error => {
+      console.error("Error fetching: ", error);
+    });
+  }, []);
+
+  return (
+    <>
+      <h2>Recipes: </h2>
+      <ul>
+        {recipes.slice(0, LIMIT).map((recipe, index) => (
+          <li key={index} onClick={() => displayChosen(recipe.id)}>Id: {recipe.id}, Title: {recipe.title}, Intro: {recipe.intro}</li>
+        ))}
+      </ul>
+      <h2>Chosen: {chosenID}</h2>
+    </>
+  );
+}
+
+
+
 function App() {
   
   return (
     <div className="test">
       <HTMLCall />
+      <GetTest />
     </div>
   );
 }
