@@ -1,5 +1,6 @@
 package com.Thanatomisants.cookbook.Model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,25 +10,18 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Ingredient {
+@AllArgsConstructor
+public class Ingredient implements Comparable<Ingredient>{
     private int id;
     private int recipeId;
     private int quantity;
     private String unit;
     private String item;
     private String notes;
+    private int sort;
 
-    public Ingredient(int quantity, String unit, String item) {
-        this.quantity = quantity;
-        this.unit = unit;
-        this.item = item;
-        notes = "";
-    }
-
-    public Ingredient(int quantity, String unit, String item, String notes) {
-        this.quantity = quantity;
-        this.unit = unit;
-        this.item = item;
-        this.notes = notes;
+    @Override
+    public int compareTo(Ingredient o) {
+        return Integer.compare(this.sort, o.getSort());
     }
 }

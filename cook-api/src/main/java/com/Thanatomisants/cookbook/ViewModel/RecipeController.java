@@ -26,12 +26,6 @@ public class RecipeController {
     @Autowired
     private CookbookRepo cookRepo;
 
-    @PostMapping()
-    public ResponseEntity<Void> addRecipe(@RequestBody Recipe recipe) {
-        boolean result = cookRepo.addRecipe(recipe);
-        return result ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     @GetMapping() //Remember repo will return limit + 1 items
     public ResponseEntity<Recipe[]> getRecipes(@RequestParam int offset, @RequestParam int limit) {
         Recipe[] results = cookRepo.getRecipes(offset, limit);
@@ -54,6 +48,12 @@ public class RecipeController {
     public ResponseEntity<Recipe[]> searchRecipesIngredient(@RequestParam String text) {
         Recipe[] results = cookRepo.searchRecipesByIngredient(text);
         return results != null ? new ResponseEntity<Recipe[]>(results, HttpStatus.OK) : new ResponseEntity<Recipe[]>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping()
+    public ResponseEntity<Void> addRecipe(@RequestBody Recipe recipe) {
+        boolean result = cookRepo.addRecipe(recipe);
+        return result ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PutMapping()

@@ -1,6 +1,7 @@
 package com.Thanatomisants.cookbook.Repo;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.Thanatomisants.cookbook.Model.Direction;
+import com.Thanatomisants.cookbook.Model.Ingredient;
 import com.Thanatomisants.cookbook.Model.Recipe;
+import com.Thanatomisants.cookbook.Mappers.IngredientRowMapper;
 import com.Thanatomisants.cookbook.Mappers.RecipeRowMapper;
 
 @Repository
@@ -16,36 +20,47 @@ public class CookbookRepo {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     // DIRECTIONS 
-    public String[] getDirections(int recipeId) {
+    public Direction[] getDirections(int recipeId) {
         throw new UnsupportedOperationException("Unimplemented method 'getDirections'");
     }
-    public String getDirection(int recipeId, int sort) {
+    public Direction getDirection(int id) {
         throw new UnsupportedOperationException("Unimplemented method 'getDirection'");
     }
-    public boolean addDirection(int recipeId, int sort, String direction) {
+    public boolean addDirection(Direction direction) {
         throw new UnsupportedOperationException("Unimplemented method 'addDirection'");
     }
-    public boolean deleteDirection(int recipeId, int sort) {
+    public boolean deleteDirection(int id) {
         throw new UnsupportedOperationException("Unimplemented method 'deleteDirection'");
     }
-    public boolean updateDirection(int recipeId, int sort, String direction) {
+    public boolean updateDirection(Direction direction) {
         throw new UnsupportedOperationException("Unimplemented method 'updateDirection'");
     }
     // INGREDIENTS
-    public String[] getIngredients(int recipeId) {
-        throw new UnsupportedOperationException("Unimplemented method 'getIngredients'");
+    public Ingredient[] getIngredients(int recipeId) {
+        String sql = "SELECT * FROM ingredients i WHERE i.recipe_id = ?";
+        List<Ingredient> ingreds = jdbcTemplate.query(sql, new IngredientRowMapper(), recipeId);
+        Collections.sort(ingreds);
+        Ingredient[] results = ingreds.toArray(new Ingredient[0]);
+        return results;
     }
-    public String getIngredient(int recipeId, int sort) {
-        throw new UnsupportedOperationException("Unimplemented method 'getIngredient'");
+    public Ingredient getIngredient(int id) {
+        String sql = "SELECT id, quantity, recipe_id AS recipeId, unit, ingredient AS item, notes, sort FROM ingredients i WHERE i.id = ?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Ingredient.class), id);
     }
-    public boolean addIngredient(int recipeId, int sort, String ingredient) {
-        throw new UnsupportedOperationException("Unimplemented method 'addIngredient'");
+    public boolean addIngredient(Ingredient ingredient) {
+        String sql = "INSERT INTO ingredients (id, quantity, recipe_id, unit, ingredient, notes, sort) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        int rows = jdbcTemplate.update(sql, ingredient.getId(), ingredient.getQuantity(), ingredient.getRecipeId(), ingredient.getUnit(), ingredient.getItem(), ingredient.getNotes(), ingredient.getSort());
+        return rows == 1;
     }
-    public boolean deleteIngredient(int recipeId, int sort) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteIngredient'");
+    public boolean deleteIngredient(int id) {
+        String sql = "DELETE FROM ingredients i WHERE i.id = ?";
+        int rows = jdbcTemplate.update(sql, id);
+        return rows == 1;
     }
-    public boolean updateIngredient(int recipeId, int sort, String ingredient) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateIngredient'");
+    public boolean updateIngredient(Ingredient ingredient) {
+        String sql = "UPDATE ingredients i SET quantity = ?, recipe_id = ?, unit = ?, ingredient = ?, notes = ?, sort = ? WHERE i.id = ?";
+        int rows = jdbcTemplate.update(sql, ingredient.getQuantity(), ingredient.getRecipeId(), ingredient.getUnit(), ingredient.getItem(), ingredient.getNotes(), ingredient.getSort(), ingredient.getId());
+        return rows == 1;
     }
     // RECIPES
     public Recipe[] getRecipes(int offset, int limit) { //limit + 1
