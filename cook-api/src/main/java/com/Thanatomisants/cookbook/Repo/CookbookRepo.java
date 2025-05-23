@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -54,13 +55,22 @@ public class CookbookRepo {
         return result;
     }
     public Recipe getRecipe(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'getRecipe'");
+        String sql = "SELECT * FROM recipes r WHERE r.id=?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Recipe.class), id);
     }
     public Recipe[] searchRecipes(String text) {
-        throw new UnsupportedOperationException("Unimplemented method 'searchRecipes'");
+        String sql = "SELECT * FROM recipes r WHERE LOWER(r.title) LIKE LOWER(?)";
+        String key = "%" + text + "%";
+        List<Recipe> recipes = jdbcTemplate.query(sql, new RecipeRowMapper(), key);
+        Recipe[] result = recipes.toArray(new Recipe[0]);
+        return result;
     }
     public Recipe[] getRecipeByIngredient(String ingredient) {
-        throw new UnsupportedOperationException("Unimplemented method 'getRecipeByIngredient'");
+        String sql = "SELECT * FROM recipes r JOIN ingredients i ON r.id = i.recipe_id WHERE LOWER(i.ingredient) LIKE LOWER(?)";
+        String key = "%" + ingredient + "%";
+        List<Recipe> recipes = jdbcTemplate.query(sql, new RecipeRowMapper(), key);
+        Recipe[] result = recipes.toArray(new Recipe[0]);
+        return result;
     }
     public boolean addRecipe(Recipe recipe) {
         String sql = "INSERT INTO recipes (title, intro, prep_time, cook_time, serving, calorie) VALUES (?, ?, ?, ?, ?, ?)";

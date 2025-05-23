@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +37,21 @@ public class RecipeController {
         return results != null ? new ResponseEntity<Recipe[]>(results, HttpStatus.OK) : new ResponseEntity<Recipe[]>(HttpStatus.NOT_FOUND);
     }
 
-    // @GetMapping("/recipe/search") //call url looks like http://localhost:8080/cook/recipe/search?text=chicken
-    // public ResponseEntity<Recipe[]> searchRecipes(@RequestParam String text) {
-       
-    // }
+    @GetMapping("/recipe/{id}") //Remember repo will return limit + 1 items
+    public ResponseEntity<Recipe> getRecipe(@PathVariable int id) {
+        Recipe result = cookRepo.getRecipe(id);
+        return result != null ? new ResponseEntity<Recipe>(result, HttpStatus.OK) : new ResponseEntity<Recipe>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/recipe/search") //call url looks like http://localhost:8080/cook/recipe/search?text=chicken
+    public ResponseEntity<Recipe[]> searchRecipes(@RequestParam String text) {
+       Recipe[] results = cookRepo.searchRecipes(text);
+       return results != null ? new ResponseEntity<Recipe[]>(results, HttpStatus.OK) : new ResponseEntity<Recipe[]>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/recipe/ingredient")
+    public ResponseEntity<Recipe[]> searchRecipesIngredient(@RequestParam String text) {
+        Recipe[] results = cookRepo.getRecipeByIngredient(text);
+        return results != null ? new ResponseEntity<Recipe[]>(results, HttpStatus.OK) : new ResponseEntity<Recipe[]>(HttpStatus.NOT_FOUND);
+    }
 }
