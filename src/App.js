@@ -20,7 +20,7 @@ function HTMLCall() {
     setResponse(null);
 
     try {
-      const res = await axios.post('http://localhost:8080/cook/recipe', {
+      const res = await axios.post('http://localhost:8080/recipe', {
         title,
         intro,
         prepTime: Number(prepTime),
@@ -117,7 +117,7 @@ function GetTest() {
     setChosenID(id);
   }
   useEffect(() => {
-    axios.get("http://localhost:8080/cook/recipe", {
+    axios.get("http://localhost:8080/recipe", {
       params: {
         offset: 0,
         limit: LIMIT
@@ -142,7 +142,27 @@ function GetTest() {
   );
 }
 
+function SearchIngTest() {
+  const [recipes, setRecipes] = useState([]);
 
+  useEffect(() => {
+    axios.get("http://localhost:8080/recipe/ingredient?text=onion").then(response => {
+      setRecipes(response.data);
+    }).catch(error => {
+      console.error("Error fetching: ", error);
+    });
+  }, []);
+  return (
+    <>
+      <h2>Searched Recipes: </h2>
+      <ul>
+        {recipes.slice(0, recipes.length).map((recipe, index) => (
+          <li key={index}>Id: {recipe.id}, Title: {recipe.title}, Intro: {recipe.intro}</li>
+        ))}
+      </ul>
+    </>
+  );
+} 
 
 function App() {
   
@@ -150,6 +170,7 @@ function App() {
     <div className="test">
       <HTMLCall />
       <GetTest />
+      <SearchIngTest />
     </div>
   );
 }

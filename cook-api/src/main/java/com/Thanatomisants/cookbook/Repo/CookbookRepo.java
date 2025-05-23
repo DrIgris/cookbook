@@ -65,7 +65,7 @@ public class CookbookRepo {
         Recipe[] result = recipes.toArray(new Recipe[0]);
         return result;
     }
-    public Recipe[] getRecipeByIngredient(String ingredient) {
+    public Recipe[] searchRecipesByIngredient(String ingredient) {
         String sql = "SELECT * FROM recipes r JOIN ingredients i ON r.id = i.recipe_id WHERE LOWER(i.ingredient) LIKE LOWER(?)";
         String key = "%" + ingredient + "%";
         List<Recipe> recipes = jdbcTemplate.query(sql, new RecipeRowMapper(), key);
@@ -78,9 +78,13 @@ public class CookbookRepo {
         return rows == 1;
     }
     public boolean updateRecipe(Recipe recipe) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateRecipe'");
+        String sql = "UPDATE recipes r SET title = ?, intro = ?, prep_time = ?, cook_time = ?, serving = ?, calorie = ? WHERE r.id = ?";
+        int rows = jdbcTemplate.update(sql, recipe.getTitle(), recipe.getIntro(), recipe.getPrepTime(), recipe.getCookTime(), recipe.getServing(), recipe.getCalorie(), recipe.getId());
+        return rows == 1;
     }
     public boolean deleteRecipe(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteRecipe'");
+        String sql = "DELETE FROM recipes r WHERE r.id = ?";
+        int rows = jdbcTemplate.update(sql, id);
+        return rows == 1;
     }
 }
