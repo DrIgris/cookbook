@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.Thanatomisants.cookbook.Model.Direction;
 import com.Thanatomisants.cookbook.Model.Ingredient;
 import com.Thanatomisants.cookbook.Model.Recipe;
+import com.Thanatomisants.cookbook.Mappers.DirectionRowMapper;
 import com.Thanatomisants.cookbook.Mappers.IngredientRowMapper;
 import com.Thanatomisants.cookbook.Mappers.RecipeRowMapper;
 
@@ -21,19 +22,30 @@ public class CookbookRepo {
     private JdbcTemplate jdbcTemplate;
     // DIRECTIONS 
     public Direction[] getDirections(int recipeId) {
-        throw new UnsupportedOperationException("Unimplemented method 'getDirections'");
+        String sql = "SELECT * FROM directions d WHERE d.recipe_id = ?";
+        List<Direction> directions = jdbcTemplate.query(sql, new DirectionRowMapper(), recipeId);
+        Collections.sort(directions);
+        Direction[] results = directions.toArray(new Direction[0]);
+        return results;
     }
     public Direction getDirection(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'getDirection'");
+        String sql = "SELECT id, sort, recipe_id AS recipeId, direction FROM directions d WHERE d.id = ?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Direction.class), id);
     }
     public boolean addDirection(Direction direction) {
-        throw new UnsupportedOperationException("Unimplemented method 'addDirection'");
+        String sql = "INSERT INTO directions (id, sort, recipe_id, direction) VALUES (?, ?, ?, ?)";
+        int rows = jdbcTemplate.update(sql, direction.getId(), direction.getSort(), direction.getRecipeId(), direction.getDirection());
+        return rows == 1;
     }
     public boolean deleteDirection(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteDirection'");
+        String sql = "DELETE FROM directions d WHERE d.id = ?";
+        int rows = jdbcTemplate.update(sql, id);
+        return rows == 1;
     }
     public boolean updateDirection(Direction direction) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateDirection'");
+        String sql = "UPDATE directions d SET sort = ?, recipe_id = ?, direction = ? WHERE d.id = ?";
+        int rows = jdbcTemplate.update(sql, direction.getSort(), direction.getRecipeId(), direction.getDirection(), direction.getId());
+        return rows == 1;
     }
     // INGREDIENTS
     public Ingredient[] getIngredients(int recipeId) {
