@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Thanatomisants.cookbook.Model.Direction;
+import com.Thanatomisants.cookbook.Model.Ingredient;
+import com.Thanatomisants.cookbook.Model.Page;
 import com.Thanatomisants.cookbook.Model.Recipe;
 import com.Thanatomisants.cookbook.Repo.CookbookRepo;
 
@@ -67,4 +70,22 @@ public class RecipeController {
         boolean result = cookRepo.deleteRecipe(id);
         return result ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    //PAGE
+    @GetMapping("/{id}")
+    public ResponseEntity<Page> getPage(@PathVariable int id) {
+        Page p = new Page();
+        Recipe r = cookRepo.getRecipe(id);
+        Ingredient[] i = cookRepo.getIngredients(id);
+        Direction[] d = cookRepo.getDirections(id);
+        if(r != null && i != null && d != null) {
+            p.setRecipe(r);
+            p.setIngredients(i);
+            p.setDirections(d);
+            return new ResponseEntity<Page>(p, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
