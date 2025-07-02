@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+.web-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(223, 130, 130, 0.568);
+}
+
+.page-title {
+  color: white;
+}
+
+.web-title, .login{
+  margin: 2vw;
+  font-size: 2.7vmin;
+  border-radius: 0.4em;
+  border-width: 0.4em;
+  border-style: outset;
+  color: white;
+  background-color: #ffa500;
+  border-color: #e39400;
+}
+
+.web-title:hover, .login:hover {
+  background-color: #e39400;
+  border-color: #d48a00;
+}
+
+.web-title:active, .login:active {
+  border-style: inset;
+  transform: translateY(2px);
+}

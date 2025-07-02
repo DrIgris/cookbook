@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Ingredient implements Comparable<Ingredient>{
     private int id;
     private int recipeId;
-    private int quantity;
+    private double quantity;
     private String unit;
     private String item;
     private String notes;

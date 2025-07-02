@@ -72,7 +72,7 @@ public class RecipeController {
     }
 
     //PAGE
-    @GetMapping("/{id}")
+    @GetMapping("/page/{id}")
     public ResponseEntity<Page> getPage(@PathVariable int id) {
         Page p = new Page();
         Recipe r = cookRepo.getRecipe(id);

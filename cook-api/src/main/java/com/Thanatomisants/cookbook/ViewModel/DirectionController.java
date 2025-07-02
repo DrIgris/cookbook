@@ -2,7 +2,6 @@ package com.Thanatomisants.cookbook.ViewModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Thanatomisants.cookbook.Repo.CookbookRepo;
 import com.Thanatomisants.cookbook.Model.Direction;
-import com.Thanatomisants.cookbook.Model.Ingredient;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController

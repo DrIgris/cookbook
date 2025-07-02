@@ -14,7 +14,7 @@ public class IngredientRowMapper implements RowMapper<Ingredient>{
         Ingredient ingredient = new Ingredient();
         ingredient.setId(rs.getInt("id"));
         ingredient.setRecipeId(rs.getInt("recipe_id"));
-        ingredient.setQuantity(rs.getInt("quantity"));
+        ingredient.setQuantity(rs.getFloat("quantity"));
         ingredient.setUnit(rs.getString("unit"));
         ingredient.setItem(rs.getString("ingredient"));
         ingredient.setNotes(rs.getString("notes"));
