@@ -169,7 +169,93 @@ const LIMIT = 3;
 // } 
 
 function Login() {
+  const [error, setError] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent form from refreshing page
 
+    try {
+      const res = await axios.post('http://localhost:8080/login', {
+        username,
+        password
+      }, {
+        withCredentials: true
+      });
+
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+      console.log(error);
+    }
+  }
+
+
+  return (
+    <>
+      <h1>LOGIN</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+      <button type="submit">Submit</button>
+      </form>
+    </>
+  );
+}
+
+function Register() {
+  const [error, setError] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent form from refreshing page
+
+    try {
+      const res = await axios.post('http://localhost:8080/login/register', {
+        username,
+        password
+      }, {
+        withCredentials: false
+      });
+
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+      console.log(error);
+    }
+  }
+
+
+  return (
+    <>
+      <h1>REGISTER</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+      <button type="submit">Submit</button>
+      </form>
+    </>
+  );
 }
 
 function Header() {
@@ -182,11 +268,16 @@ function Header() {
     navigate("/login");
   }
 
+  function handleRegister() {
+    navigate("/register");
+  }
+
   return (
     <div class="web-header">
-      <button onClick={handleHome} class="web-title">HOME</button>
+      <button onClick={handleHome} class="home-button header-button">HOME</button>
       <h1 class="page-title">Cookbook</h1>
-      <button onClick={handleLogin} class="login">LOGIN</button>
+      <button onClick={handleRegister} class="register-button header-button">REGISTER</button>
+      <button onClick={handleLogin} class="logi-button header-button">LOGIN</button>
     </div>
   );
 }
@@ -195,11 +286,6 @@ function Header() {
 function Recipe() {
 
   //Will eventually have userIDs which will be stored with the recipes, if userIDs match show button to take user to component to edit the recipe
-
-  const navigate = useNavigate();
-  function handleHome() {
-    navigate("/");
-  }
 
   const { id } = useParams();
 
@@ -364,6 +450,7 @@ function App() {
         {/* <Route path="/about" element={<About />} /> */}
         <Route path="/recipe/:id" element={<Recipe />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
